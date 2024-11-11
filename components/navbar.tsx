@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { Button } from './ui/button';
 import Link from 'next/link';
 import {
@@ -14,9 +15,13 @@ export default function Navbar({ className }: { className: string }) {
       {/* LOGO */}
       <div className="w-36 md:w-40 xl:w-60">
         <Link href="/">
-              <Button size="lg" className="rounded-3xl start-now-color">
-                Logo
-              </Button>
+                <Image
+                src="/images/logo.png"
+                alt="Fit-Gym"
+                width={70}
+                height={60}
+                className="rounded-3xl start-now-color"
+                />
             </Link>
       </div>
 

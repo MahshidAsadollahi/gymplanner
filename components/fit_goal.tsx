@@ -60,7 +60,7 @@ export default function FitGoal({
               htmlFor="burn_fats"
               className="flex cursor-pointer gap-2 h-full text-2xl lg:text-3xl font-black text-center flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
             >
-              Burn Fats
+              Lose Weight
               <Lottie loop animationData={fireAnimation} className="w-14" />
               <span className="text-neutral-400 text-sm text-center font-normal">
                 Burn fats and lose weight
@@ -79,7 +79,7 @@ export default function FitGoal({
               htmlFor="cardiovascular"
               className="flex cursor-pointer gap-2 h-full text-2xl lg:text-3xl font-black text-center flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
             >
-              Cardiovascular health
+              Improve health
               <Lottie loop animationData={healthAnimation} className="w-14" />
               <span className="text-neutral-400 text-sm text-center font-normal">
                 Better heart health and blood vessels
@@ -108,6 +108,22 @@ export default function FitGoal({
         </RadioGroup>
       </div>
       <br />
+
+       {/* ideal weight goal*/}
+       <div className="flex flex-col space-y-2">
+        <Label htmlFor="age" className="text-md lg:text-lg">What is your goal weight?</Label>
+        <Picker
+          max={160}
+          min={2}
+          tag="Kg"
+          value={answers.ideal_weight}
+          onAdd={() => setAnswers({ ...answers, ideal_weight: answers.ideal_weight + 1 })}
+          onRemove={() => {
+            setAnswers({ ...answers, ideal_weight: answers.ideal_weight - 1 })
+          }}
+          onSlide={(e) => setAnswers({ ...answers, ideal_weight: e })}
+        />
+      </div>
 
       {/* days */}
       <div className="flex flex-col space-y-2">

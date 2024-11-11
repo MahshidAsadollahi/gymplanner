@@ -13,6 +13,7 @@ datasource db {
 model Program {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   slug     String @unique
+  email    String
   overview Json
   workout  Json
   diet     Json

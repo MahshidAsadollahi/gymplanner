@@ -21,9 +21,9 @@ export default function Picker(
     tag: string
   },
 ) {
-  // returns
+  
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 container">
       <div className="flex flex-col gap-2 w-fit">
         <div className="flex items-center gap-6">
           <Button
@@ -31,19 +31,19 @@ export default function Picker(
               if (value - 1 >= min) onRemove()
             }}
             variant="outline"
-            className="rounded-full w-10 h-10 p-2 text-2xl"
+            className="rounded-full w-10 h-10 p-2 text-2xl bg-primary bg-gradient-primary hover:bg-gradient-hover transition-all"
           >
             <IoIosRemove />
           </Button>
-          <div id="age" className="text-5xl font-bold">
+          <div id="age" className="rs-label bg-primary bg-gradient-primary hover:bg-gradient-hover transition-all text-white text-center rounded-2x-lg px-2 py-6">
             {value}
           </div>
           <Button
             onClick={() => {
-              if (value + 1 <= max) onAdd()
+              if (value + 1 <= max) onAdd();
             }}
             variant="outline"
-            className="rounded-full w-10 h-10 p-2 text-2xl"
+            className="rounded-full w-10 h-10 p-2 text-2xl bg-primary bg-gradient-primary hover:bg-gradient-hover transition-all"
           >
             <IoIosAdd />
           </Button>
@@ -57,7 +57,12 @@ export default function Picker(
         max={max}
         min={min}
         step={1}
+        className="rs-range"
       />
+      <div className="box-minmax">
+        <span>{min}</span>
+        <span>{max}</span>
+      </div>
     </div>
-  )
+  );
 }

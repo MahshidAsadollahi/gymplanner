@@ -1,14 +1,23 @@
 export type stepType = {
   id: string;
   component: any;
+  sub_steps: subStepType[];
   title: string;
   description: string;
   icon: string;
   answers: object;
 };
 
+export type subStepType = {
+  id: any;
+  title: string;
+  component: ({ id, answers, setAnswers }: { id: string; answers: object; setAnswers: (newAnswers: any) => void }) => JSX.Element;
+};
+
+
 export type stepsType = {
   step_num: number;
+  sub_step_num: number; 
   animation: string;
   is_next_btn: boolean;
   is_previous_btn: boolean;

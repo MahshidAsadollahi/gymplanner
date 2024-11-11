@@ -104,6 +104,8 @@ export default function getCompositionData({
   age,
   body_type,
   fitness_goal,
+  medical_conditions,
+  specific_dietary,
 }: {
   is_fat_accurate: boolean;
   neck: number;
@@ -114,19 +116,20 @@ export default function getCompositionData({
   age: number;
   fitness_goal: 'build_muscle' | 'burn_fats' | 'endurance' | 'cardiovascular';
   body_type:
-  | 'ultralean'
-  | 'verylean'
   | 'lean'
-  | 'moderatelylean'
   | 'healthy'
   | 'moderatelyoverweight'
   | 'overweight'
-  | 'obese';
+  | 'obese'
+  | 'extremely_obese';
+  specific_dietary: string[];
+  medical_conditions: string[];
 }): {
     fat_percentage: number;
     is_healthy: boolean;
     max_value: number;
     ideal_fat: number;
+    adjusted_plan: string;
   } {
   let fat_percentage = 0;
   if (is_fat_accurate) {
@@ -138,14 +141,12 @@ export default function getCompositionData({
       waist,
     });
   } else {
-    if (body_type === 'ultralean') fat_percentage = 3;
-    if (body_type === 'verylean') fat_percentage = 8;
-    if (body_type === 'lean') fat_percentage = 13;
-    if (body_type === 'moderatelylean') fat_percentage = 18;
-    if (body_type === 'healthy') fat_percentage = 23;
-    if (body_type === 'moderatelyoverweight') fat_percentage = 28;
-    if (body_type === 'overweight') fat_percentage = 33;
-    if (body_type === 'obese') fat_percentage = 38;
+    if (body_type === 'lean') fat_percentage = 5;
+    if (body_type === 'healthy') fat_percentage = 15;
+    if (body_type === 'moderatelyoverweight') fat_percentage = 25;
+    if (body_type === 'overweight') fat_percentage = 35;
+    if (body_type === 'obese') fat_percentage = 45;
+    if (body_type === 'extremely_obese') fat_percentage = 55;
   }
 
   let max_value = 0;
@@ -170,10 +171,20 @@ export default function getCompositionData({
   let ideal_fat = getIdeal({ age, gender });
   if (fitness_goal === 'build_muscle') ideal_fat -= 3;
 
+    // Adjust plan based on medical conditions and dietary restrictions
+    let adjusted_plan = 'Standard Plan';
+    if (Array.isArray(medical_conditions) && medical_conditions.includes('heart')) {
+      adjusted_plan = 'Cardio-Friendly Plan';
+    }
+    if (Array.isArray(specific_dietary) && specific_dietary.includes('vegan')) {
+      adjusted_plan = 'Vegan Plan';
+    }
+
   return {
     fat_percentage,
     is_healthy: isCompositionHealthy({ age, fat_percentage, gender }),
     max_value,
     ideal_fat,
+    adjusted_plan,
   };
 }

@@ -34,18 +34,18 @@ export default function AboutPage() {
     <div className="px-6 lg:w-5/6 xl:w-4/6 py-10 mx-auto">
       <div className="space-y-12 text-md md:text-lg text-gray-500 pb-4 md:pb-8">
         <div className="text-center">
-          <h2 className="sunday-s text-8xl md:text-9xl font-medium text-gray-700">
+          <h2 className="sunday-s text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-medium text-gray-700">
             <span className="sduk-curved-underline-animation">MAHSHID<br /> Asadollahi</span>
           </h2>
-          <p className="sunday-s text-8xl md:text-9xl mt-12">
+          <p className="sunday-s text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-12 sm:mt-10">
             web <span className="highlight-text">developer</span>
           </p>
-          <p className="sunday-s text-5xl md:text-7xl mt-12">
+          <p className="sunday-s text-3xl sm:text-4xl md:text-5xl mt-8 sm:mt-10">
             I love designing and coding
           </p>
           <motion.p
             id="zoom-paragraph"
-            className="sunday-s text-8xl md:text-9xl mt-12 mb-12"
+            className="sunday-s text-5xl sm:text-6xl md:text-7xl lg:text-8xl mt-12 mb-12"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={isVisible ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
             transition={{ duration: 0.5 }}
@@ -94,7 +94,7 @@ export default function AboutPage() {
               >
                 {isActive && (
                   <motion.p
-                    className="absolute text-xl font-semibold text-gray-700 transition-all duration-500 ease-in-out"
+                    className="absolute text-lg sm:text-xl font-semibold text-gray-700 transition-all duration-500 ease-in-out"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
@@ -109,12 +109,13 @@ export default function AboutPage() {
                   className="absolute h-16 w-16 bg-white rounded-full flex items-center justify-center transition-transform duration-500 ease-in-out"
                   style={{ transform: isActive ? 'translateX(260px)' : 'translateX(0)' }}
                 >
-                  {/* placing the SVG img here as an replace */}
+                 
                   <Image
                     src="LetterDoodle.svg"
                     alt="send me msg"
-                    width={200}
-                    height={200}
+                    width={100}
+                    height={100}
+                    className='max-w-full h-auto'
                   />
                 </button>
               </motion.div>

@@ -6,7 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { useState, useContext, useEffect } from 'react';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { Slider } from '@/components/ui/slider';
 import { Separator } from '@/components/ui/separator';
 import { TimeClock } from '@mui/x-date-pickers/TimeClock';
@@ -21,11 +21,21 @@ export default function SleepCard(
   // variables
   const { getAnswer, updateAnswer } = useContext(StepsContext);
   const [answers, setAnswers] = useState<any>(getAnswer(id));
+  const [sleepTime, setSleepTime] = useState<Dayjs | null>(dayjs().set('hour', answers.sleep_time));
+  const [wakeUpTime, setWakeUpTime] = useState<Dayjs | null>(dayjs().set('hour', answers.wakeup_time));
 
   // functions
   useEffect(() => {
     updateAnswer(id, answers);
   }, [answers]);
+
+  useEffect(() => {
+    setAnswers({ ...answers, sleep_time: sleepTime ? sleepTime.get('hour') : null });
+  }, [sleepTime]);
+
+  useEffect(() => {
+    setAnswers({ ...answers, wakeup_time: wakeUpTime ? wakeUpTime.get('hour') : null });
+  }, [wakeUpTime]);
 
   // returns
   return (
@@ -33,7 +43,7 @@ export default function SleepCard(
       <div className="grid w-full items-center gap-12">
         {/* AVG hours */}
         <div className="flex flex-col space-y-2">
-          <Label htmlFor="age" className="text-lg">
+          <Label htmlFor="age" className="text-md lg:text-lg">
             How many sleep hours are you getting ⏰ ?
           </Label>
           <Picker
@@ -93,48 +103,6 @@ export default function SleepCard(
           </RadioGroup>
         </div>
 
-        {/* screen time */}
-        <div className="flex flex-col space-y-2 text-lg">
-          <Label htmlFor="name" className="text-lg">
-            Do you spend screen time before bed 📱 ?
-          </Label>
-          <RadioGroup
-            onValueChange={(e) => setAnswers({ ...answers, screen_time: e })}
-            defaultValue={answers.screen_time}
-            className="flex gap-6 items-center"
-          >
-            <div className="flex items-center space-x-2 text-lg">
-              <RadioGroupItem value="yes" id="yes" />
-              <Label className="text-lg" htmlFor="yes">Yes</Label>
-            </div>
-            <div className="flex items-center space-x-2 text-lg">
-              <RadioGroupItem value="no" id="no" />
-              <Label className="text-lg" htmlFor="no">No</Label>
-            </div>
-          </RadioGroup>
-        </div>
-
-        {/* difficulty falling asleep */}
-        <div className="flex flex-col space-y-2 text-lg">
-          <Label htmlFor="name" className="text-lg">
-            Do you experience any difficulty falling asleep 😫 ?
-          </Label>
-          <RadioGroup
-            onValueChange={(e) => setAnswers({ ...answers, difficulty_falling_asleep: e })}
-            defaultValue={answers.difficulty_falling_asleep}
-            className="flex gap-6 items-center"
-          >
-            <div className="flex items-center space-x-2 text-lg">
-              <RadioGroupItem value="yes" id="yes-2" />
-              <Label className="text-lg" htmlFor="yes-2">Yes</Label>
-            </div>
-            <div className="flex items-center space-x-2 text-lg">
-              <RadioGroupItem value="no" id="no-2" />
-              <Label className="text-lg" htmlFor="no-2">No</Label>
-            </div>
-          </RadioGroup>
-        </div>
-
         {/* clock */}
         <div className="flex items-center w-full gap-3 h-full">
           {/* bed time */}
@@ -146,15 +114,14 @@ export default function SleepCard(
               <TimeClock
                 ampm={false}
                 views={['hours']}
-                defaultValue={dayjs().set('hour', answers.sleep_time)}
-                onChange={(e) => setAnswers({ ...answers, sleep_time: dayjs(e).get('hour') })}
+                value={sleepTime}
+                onChange={(newValue) => setSleepTime(newValue)}
               />
             </LocalizationProvider>
             <h3 className="text-center font-bold text-2xl">
-              {answers.sleep_time}
-              :00
+              {sleepTime ? sleepTime.format('HH:00') : ''}
               {' '}
-              {answers.sleep_time >= 12 ? 'PM' : 'AM'}
+              {sleepTime && sleepTime.hour() >= 12 ? 'PM' : 'AM'}
             </h3>
           </div>
 
@@ -168,15 +135,14 @@ export default function SleepCard(
               <TimeClock
                 ampm={false}
                 views={['hours']}
-                defaultValue={dayjs().set('hour', answers.wakeup_time)}
-                onChange={(e) => setAnswers({ ...answers, wakeup_time: dayjs(e).get('hour') })}
+                value={wakeUpTime}
+                onChange={(newValue) => setWakeUpTime(newValue)}
               />
             </LocalizationProvider>
             <h3 className="text-center font-bold text-2xl">
-              {answers.wakeup_time}
-              :00
+              {wakeUpTime ? wakeUpTime.format('HH:00') : ''}
               {' '}
-              {answers.wakeup_time >= 12 ? 'PM' : 'AM'}
+              {wakeUpTime && wakeUpTime.hour() >= 12 ? 'PM' : 'AM'}
             </h3>
           </div>
         </div>

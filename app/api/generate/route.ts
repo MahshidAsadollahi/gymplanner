@@ -1,10 +1,9 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable import/prefer-default-export */
 
-// imports
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
+import { sendProgramEmail } from '../emailService';
+
 
 export async function POST(request: Request): Promise<any> {
   // get data from request
@@ -21,6 +20,7 @@ export async function POST(request: Request): Promise<any> {
 
   // validate data
   if (error) {
+    console.error('Error parsing request JSON:', error);
     return NextResponse.json(
       {
         message: 'Bad Request',
@@ -30,6 +30,7 @@ export async function POST(request: Request): Promise<any> {
     );
   }
   if (typeof result !== 'object') {
+    console.error('Invalid request data:', result);
     return NextResponse.json(
       {
         message: 'Bad request',
@@ -57,22 +58,34 @@ export async function POST(request: Request): Promise<any> {
 
   // save data to DB
   const prisma = new PrismaClient();
-  const slug = result.name
-    ? result.name + uuidv4().substring(0, 4)
-    : uuidv4().substring(0, 5);
-  await prisma.program
-    .create({
+  const sanitizeSlug = (name: string) => name.replace(/[^a-zA-Z0-9]/g, '-');
+  const slug = result.name ? sanitizeSlug(result.name) + uuidv4().substring(0, 4) : uuidv4().substring(0, 5);
+  try {
+    await prisma.program.create({
       data: {
         slug,
+        email: result.name,
         diet: {},
         overview,
         workout: {},
       },
-    })
-    .then(() => console.log('DATA ADDED TO DB'))
-    .catch((err) => console.log(err));
+    });
+    console.log('DATA ADDED TO DB');
+  } catch (err) {
+    console.error('Error adding data to DB:', err);
+    return NextResponse.json(
+      {
+        message: 'Internal Server Error',
+        error: (err as Error).toString(),
+      },
+      { status: 500 },
+    );
+  }
 
-  return NextResponse.json({
-    slug,
+  // Send email
+  sendProgramEmail([result.name], slug).catch((emailError) => {
+    console.error('Error sending email:', emailError);
   });
+
+  return NextResponse.json({slug,});
 }
