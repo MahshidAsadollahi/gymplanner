@@ -2,11 +2,25 @@ import nodemailer from 'nodemailer';
 
 export async function sendProgramEmail(to: string[], programPage: string): Promise<void> {
   let transporter = nodemailer.createTransport({
-    service: 'gmail',
+    port: 465,
+    host: 'smtp.gmail.com',
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
+    secure: true,
+  });
+
+  await new Promise((resolve, reject) => {
+    transporter.verify((error, success) => {
+      if (error) {
+        console.log('Error verifying email:', error);
+        reject(error);
+      } else {
+        console.log('Server is ready to take our messages');
+        resolve(success);
+      }
+    });
   });
   const recipients = Array.isArray(to) ? to.join(',') : to;
 
@@ -61,5 +75,15 @@ export async function sendProgramEmail(to: string[], programPage: string): Promi
     `,
   };
 
-  await transporter.sendMail(mailOptions);
+  await new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.error("Error sending email:", err);
+        reject(err);
+      } else {
+        console.log("Email sent:", info);
+        resolve(info);
+      }
+    });
+  });
 }
