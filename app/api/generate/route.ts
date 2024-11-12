@@ -83,9 +83,19 @@ export async function POST(request: Request): Promise<any> {
   }
 
   // Send email
-  sendProgramEmail([result.name], slug).catch((emailError) => {
+  try{
+    await sendProgramEmail([result.name], slug);
+    console.log('Email sent successfully');
+  }catch(emailError) {
     console.error('Error sending email:', emailError);
-  });
+    return NextResponse.json(
+      {
+        message: 'Internal Server Error',
+        error: (emailError as Error).toString(),
+      },
+      { status: 500 },
+    );
+  }
 
   return NextResponse.json({slug,});
 }
