@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 export async function sendProgramEmail(to: string[], programPage: string): Promise<void> {
   try {
     let transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
+      host: 'smtp.sendgrid.net',
       port: 587,
       auth: {
         user: 'apikey',
