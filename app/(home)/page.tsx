@@ -17,13 +17,13 @@ export default function Home() {
         </h1>
         <div className="flex flex-col lg:flex-row items-center justify-between lg:gap-10">
           <div className="lg:w-1/2 text-left">
-            <p className="text-lg lg:text-xl text-neutral-400 lg:px-59 mx-auto lg:mx-0 leading-relaxed lg:leading-loose">
+            <p className="text-sm lg:text-xl text-neutral-400 lg:px-59 mx-auto lg:mx-0 leading-relaxed lg:leading-loose">
               Get started with our FREE personalized workout plan that&apos;s tailored just for you.
               No more excuses, every rep, every set is a step closer to becoming the strongest version of yourself.
               Stay committed, stay motivated.It’s time to prioritize YOU.
             </p>
             <Link href="/start">
-              <Button size="lg" className="start-now-button w-60 mt-16 py-7 text-xl animate__animated animate__infinite animate__pulse rounded-full shadow-lg mx-auto ml-20">
+              <Button size="lg" className="start-now-button w-60 mt-16 py-7 text-xl animate__animated animate__infinite animate__pulse rounded-full shadow-lg mx-auto lg:ml-0 ml-10">
                 Start Now
               </Button>
              

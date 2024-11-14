@@ -71,7 +71,7 @@ const AnimatedChart = () => {
       mealsMultiplier = 1;
     }
 
-    days = ((weight - ideal_weight) * goalMultiplier / workout_days) * levelMultiplier * mealsMultiplier;
+    days = (Math.abs(weight - ideal_weight) * goalMultiplier / workout_days) * levelMultiplier * mealsMultiplier;
     return Math.max(0, Math.round(days));
   };
 
@@ -81,7 +81,7 @@ const AnimatedChart = () => {
     datasets: [
       {
         label: 'Weight Progress',
-        data: Array.from({ length: daysToGoal }, (_, i) => basicInfo.weight - (i * (basicInfo.weight - fitGoal.ideal_weight) / (daysToGoal - 1))),
+        data: Array.from({ length: daysToGoal }, (_, i) => basicInfo.weight + (i * (fitGoal.ideal_weight - basicInfo.weight) / (daysToGoal - 1))),
         fill: false,
         backgroundColor: 'rgba(75,192,192,0.4)',
         borderColor: 'rgba(75,192,192,1)',
@@ -152,12 +152,9 @@ const AnimatedChart = () => {
         easing: 'linear',
         from: (ctx) => {
           if (ctx.type === 'data') {
-            return ctx.chart.scales.y.getPixelForValue(50);
-            
+            return ctx.chart.scales.y.getPixelForValue(basicInfo.weight);
           }
-          
         },
-        
       },
     },
   };

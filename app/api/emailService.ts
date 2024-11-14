@@ -22,8 +22,8 @@ export async function sendProgramEmail(to: string[], programPage: string): Promi
               <div style="padding: 32px 0; border-bottom: 1px solid #e0e0e0;">
                 <h3 style="text-align: center; font-size: 24px; margin-bottom: 32px;">Subscribe For More</h3>
                 <p style="padding-top: 16px; line-height: 1.6;">
-                  Greetings!<br><br> Thank you for signing up for our fitness program. You can access your personalized program page using the link below:<br><br>
-                  <a href="https://fitgym.io/program/${programPage}" style="display: inline-block; background: linear-gradient(90deg, rgba(129,230,217,1) 0%, rgba(79,209,197,1) 100%); color: #ffffff; text-decoration: none; padding: 16px; border-radius: 4px; text-align: center; width: 100%;">Click Here</a>
+                  <br><br> Thank you for signing up for our fitness program. You can access your personalized program page using the link below:<br><br>
+                  <a href="https://fitgym.life/program/${programPage}" style="display: inline-block; background: linear-gradient(90deg, rgba(129,230,217,1) 0%, rgba(79,209,197,1) 100%); color: #ffffff; text-decoration: none; padding: 16px; border-radius: 4px; text-align: center; width: 100%;">Click Here</a>
                 </p>
 
                 <h3 style="text-align: center; font-size: 24px; margin-bottom: 32px;">Our Monthly Plan</h3>
@@ -32,13 +32,13 @@ export async function sendProgramEmail(to: string[], programPage: string): Promi
                     Our subscription includes a full consultation and a customized plan tailored to your needs.
                   </p>
                   <p style="text-align: center; margin-top: 24px;">
-                    <a href="https://fitgym.io/subscribe" style="display: inline-block; background: linear-gradient(90deg, rgba(255,94,0,1) 0%, rgba(255,154,0,1) 100%); color: #ffffff; text-decoration: none; padding: 16px; border-radius: 4px; text-align: center; width: auto;">Subscribe Now for $29.99/month</a>
+                    <a href="https://fitgym.life" style="display: inline-block; background: linear-gradient(90deg, rgba(255,94,0,1) 0%, rgba(255,154,0,1) 100%); color: #ffffff; text-decoration: none; padding: 16px; border-radius: 4px; text-align: center; width: auto;">Subscribe Now for $29.99/month</a>
                   </p>
                 </div>
               </div>
               <div style="margin-top: 32px; text-align: center; color: #666666;">
                 <h3 style="font-size: 16px; margin-bottom: 16px;">Thanks for using Fit Gym!</h3>
-                <p>www.fitgym.io</p>
+                <p>www.fitgym.life</p>
               </div>
             </div>
             <div style="text-align: center; color: #666666; margin-top: 32px;">
@@ -49,8 +49,7 @@ export async function sendProgramEmail(to: string[], programPage: string): Promi
               </div>
               <div>
                 <p style="line-height: 1.6;">
-                  Questions or concerns? <a href="#" style="color: #333333;">help@fitgym.io</a><br>
-                  Want to quit getting updates? <a href="#" style="color: #333333;">Unsubscribe</a>
+                  Questions or concerns? <a href="#" style="color: #333333;">sarah.cummingss96@gmail.com</a><br>
                 </p>
               </div>
             </div>
