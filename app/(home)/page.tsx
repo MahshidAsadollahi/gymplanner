@@ -23,7 +23,7 @@ export default function Home() {
               Stay committed, stay motivated.It’s time to prioritize YOU.
             </p>
             <Link href="/start">
-              <Button size="lg" className="start-now-button w-60 mt-16 py-7 text-xl animate__animated animate__infinite animate__pulse rounded-full shadow-lg mx-auto lg:ml-0 ml-10">
+              <Button size="lg" className="start-now-button w-60 mt-16 py-7 text-xl animate__animated animate__infinite animate__pulse rounded-full shadow-lg mx-auto lg:ml-0 ml-13">
                 Start Now
               </Button>
              

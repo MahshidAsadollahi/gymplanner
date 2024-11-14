@@ -62,7 +62,7 @@ export default function AboutPage() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  style={{color:'#fcd34d'}}
+                  style={{ color: '#fcd34d' }}
                 >
                   here
                 </motion.span>
@@ -94,11 +94,13 @@ export default function AboutPage() {
               >
                 {isActive && (
                   <motion.p
-                    className="absolute text-lg sm:text-xl font-semibold text-gray-700 transition-all duration-500 ease-in-out"
+                    className={`absolute text-sm sm:text-base md:text-lg font-semibold text-gray-700 transition-all duration-500 ease-in-out ${
+                      isActive ? 'left-20 sm:left-3 md:left-5' : 'left-0'
+                    }`}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
-                    style={{ top: '20px', left: '-65px' }}
+                    style={{ top: '20px', marginLeft: '-50px' }}
                   >
                     sarah.cummingss96@gmail.com
                   </motion.p>
@@ -109,13 +111,12 @@ export default function AboutPage() {
                   className="absolute h-16 w-16 bg-white rounded-full flex items-center justify-center transition-transform duration-500 ease-in-out"
                   style={{ transform: isActive ? 'translateX(260px)' : 'translateX(0)' }}
                 >
-                 
                   <Image
                     src="LetterDoodle.svg"
                     alt="send me msg"
                     width={100}
                     height={100}
-                    className='max-w-full h-auto'
+                    className="max-w-full h-auto"
                   />
                 </button>
               </motion.div>
